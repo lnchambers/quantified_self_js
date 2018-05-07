@@ -9,8 +9,8 @@ router.get('/', function(req, res, next) {
 })
 
 router.get('/:id', function(req, res, next) {
-  var id = req.params.id
-  res.send({ specific: 'json' })
+  Food.find_by(req.params.id)
+  .then(foods => res.json(foods))
 })
 
 module.exports = router;

@@ -8,14 +8,17 @@ const database = require('knex')(configuration)
 
 chai.use(chaiHttp)
 
+const Food = require('../models/food')
+
 describe("Food API", () => {
   beforeEach((done) => {
-      Food.remove({}, (err) => {
-         done()
-      })
+    database.seed.run()
+    .then(() => done())
+    .catch((error) => {throw error})
+    .done()
   })
 
-  describe("GET api/v1/foods should return all foods", () => {
+  it("GET api/v1/foods should return all foods", () => {
     chai.request(app)
     .get('/api/v1/foods')
     .then((response) => {
@@ -32,12 +35,13 @@ describe("Food API", () => {
     })
   })
 
-  describe("GET api/v1/foods/:id should return one food", () => {
+  it("GET api/v1/foods/:id should return one food", () => {
     chai.request(app)
-    .get('/api/v1/foods')
+    .get('/api/v1/foods/1')
     .then((response) => {
       response.should.have.status(200)
       response.should.be.json
+      response.body.should.deep.equal({ id: 1, name: 'Opakawagalaga Eupanifahorious', calories: 300 })
     })
   })
 })
