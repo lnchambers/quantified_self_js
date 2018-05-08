@@ -24,14 +24,10 @@ const Food = require('../models/food')
       .end((err, response) => {
         response.should.have.status(200);
         response.should.be.json;
-        response.body.should.deep.equal(
-          [
-            { id: 1, name: 'Opakawagalaga Eupanifahorious', calories: 300 },
-            { id: 2, name: 'Seaweed', calories: 3000 },
-            { id: 3, name: 'Fruit Snax 100% YOLO SWAG', calories: 42000000 },
-            { id: 4, name: 'Landweed', calories: 60 }
-          ]
-        )
+        response.body[0].should.deep.equal({ id: 1, name: 'Opakawagalaga Eupanifahorious', calories: 300 })
+        response.body[1].should.deep.equal({ id: 2, name: 'Seaweed', calories: 3000 })
+        response.body[2].should.deep.equal({ id: 3, name: 'Fruit Snax 100% YOLO SWAG', calories: 42000000 })
+        response.body[3].should.deep.equal({ id: 4, name: 'Landweed', calories: 60 })
         done();
       })
     })
@@ -58,6 +54,19 @@ const Food = require('../models/food')
         response.should.be.json
         response.body.calories.should.equal(42)
         response.body.name.should.equal("Opakawagalaga's Pawpaws")
+        done()
+      })
+    })
+
+    it("PATCH api/v1/foods/:id should update a food", (done) => {
+      chai.request(app)
+      .patch('/api/v1/foods/5')
+      .send({ food: { name: "Eupanifahorious Mints", calories: 43 } })
+      .end((err, response) => {
+        response.should.have.status(200)
+        response.should.be.json
+        response.body.name.should.equal("Eupanifahorious Mints")
+        response.body.calories.should.equal(43)
         done()
       })
     })

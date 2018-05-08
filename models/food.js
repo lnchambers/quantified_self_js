@@ -13,12 +13,18 @@ class Food {
   }
 
   static create(attributes){
-    console.log("Hi There")
     return database('foods')
     .insert(attributes)
     .returning(['id', 'name', 'calories'])
     .then(rows => rows[0])
-    console.log("General Kenobi")
+  }
+
+  static update(id, attributes){
+    return database('foods')
+    .where('id', id)
+    .update(attributes)
+    .returning(['id', 'name', 'calories'])
+    .then(rows => rows[0])
   }
 
 }
