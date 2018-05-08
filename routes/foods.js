@@ -1,16 +1,30 @@
 var express = require('express');
 var router = express.Router();
+const Food = require('../models/food')
 
-/* GET home page. */
 router.get('/', function(req, res, next) {
-  res.send({ some: 'json' })
+  Food.all()
+ .then(foods => res.json(foods))
 })
 
 router.get('/:id', function(req, res, next) {
-  var id = req.params.id
-  res.send({ specific: 'json' })
+  Food.find_by(req.params.id)
+  .then(food => res.json(food))
 })
 
-router.post()
+router.post('/', function(req, res, next) {
+  Food.create(req.body.food)
+  .then(food => res.json(food))
+})
+
+router.patch('/:id', function(req, res, next) {
+  Food.update(req.params.id, req.body.food)
+  .then(food => res.json(food))
+})
+
+router.delete('/:id', function(req, res, next) {
+  Food.destroy(req.params.id)
+  .then(res.sendStatus(200))
+})
 
 module.exports = router;
