@@ -14,6 +14,13 @@ const FoodMeal = require('../models/food_meal')
 
 describe("Meal API", function() {
   this.timeout(0)
+  before((done) => {
+    database.migrate.latest()
+    .then(() => done())
+    .catch((error) => {throw error})
+    .done()
+  })
+
   beforeEach((done) => {
     database.seed.run()
     .then(() => done())
@@ -21,12 +28,13 @@ describe("Meal API", function() {
     .done()
   })
 
-  it("GET api/v1/meals should return all meals", (done) => {
+  it.only("GET api/v1/meals should return all meals", (done) => {
     chai.request(app)
     .get('/api/v1/meals')
     .end((err, response) => {
       response.should.have.status(200)
       response.should.be.json
+      response.body.should.deep.equal({ id: 1, name: "Elevensies" })
       done()
     })
   })

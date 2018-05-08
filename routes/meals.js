@@ -1,8 +1,10 @@
 var express = require('express');
 var router = express.Router();
+const Meal = require('../models/meal')
 
 router.get('/', function(req, res, next) {
-  res.json({ title: 'Express' });
+  Meal.all()
+  .then(meals => res.json(meals))
 });
 
 router.get('/:meal_id/foods', function(req, res, next) {
