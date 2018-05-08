@@ -10,7 +10,8 @@ chai.use(chaiHttp)
 
 const Food = require('../models/food')
 
-describe("Food API", () => {
+describe("Food API", function() {
+  this.timeout(0)
   beforeEach((done) => {
     database.seed.run()
     .then(() => done())
