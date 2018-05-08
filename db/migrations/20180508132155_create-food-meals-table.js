@@ -1,15 +1,12 @@
 exports.up = function(knex, Promise) {
-  let createQuery = `CREATE TABLE food_meals(
-    id SERIAL PRIMARY KEY NOT NULL,
-    food_id FOREIGN KEY NOT NULL,
-    meal_id FOREIGN KEY NOT NULL,
-    created_at TMESTAMP,
-    updated_at TIMESTAMP
-  )`
-  return knex.raw(createQuery)
-};
+  return knex.schema.createTable('food_meals', function(table){
+     table.increments()
+     table.integer('meal_id').index()
+     table.integer('food_id').index()
+     table.timestamps(true, true)
+  })
+}
 
 exports.down = function(knex, Promise) {
-  let dropQuery = `DROP TABLE food_meals`
-  return knex.raw(dropQuery)
-};
+  return knex.schema.dropTable('food_meals')
+}
