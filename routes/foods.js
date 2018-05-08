@@ -22,4 +22,9 @@ router.patch('/:id', function(req, res, next) {
   .then(food => res.json(food))
 })
 
+router.delete('/:id', function(req, res, next) {
+  Food.destroy(req.params.id)
+  .then(res.sendStatus(200))
+})
+
 module.exports = router;
