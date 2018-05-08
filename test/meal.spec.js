@@ -30,4 +30,33 @@ describe("Meal API", function() {
       done()
     })
   })
+
+  it("GET api/v1/meals/:meal_id/foods should return all foods associated with the meal", (done) => {
+    chai.request(app)
+    .get('/api/v1/meals/2/foods')
+    .end((err, response) => {
+      response.should.have.status(200)
+      response.should.be.json
+      done()
+    })
+  })
+
+  it("POST api/v1/meals/:meal_id/foods/:id should add food to meal", (done) => {
+    chai.request(app)
+    .post('/api/v1/meals/2/foods/2')
+    .end((err, response) => {
+      response.should.have.status(200)
+      response.should.be.json
+      done()
+    })
+  })
+
+  it("DELETE api/v1/meals/:meal_id/foods/:id should remove food from meal", (done) => {
+    chai.request(app)
+    .delete('/api/v1/meals/2/foods/2')
+    .end((err, response) => {
+      response.should.have.status(200)
+      done()
+    })
+  })
 })
