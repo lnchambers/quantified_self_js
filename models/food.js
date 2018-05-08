@@ -12,6 +12,15 @@ class Food {
     return database('foods').where('id', id)
   }
 
+  static create(attributes){
+    console.log("Hi There")
+    return database('foods')
+    .insert(attributes)
+    .returning(['id', 'name', 'calories'])
+    .then(rows => rows[0])
+    console.log("General Kenobi")
+  }
+
 }
 
 module.exports = Food

@@ -13,4 +13,9 @@ router.get('/:id', function(req, res, next) {
   .then(foods => res.json(foods))
 })
 
+router.post('/', function(req, res, next) {
+  Food.create(req.body.food)
+  .then(food => res.json(food))
+})
+
 module.exports = router;
