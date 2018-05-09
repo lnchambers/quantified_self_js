@@ -32,7 +32,6 @@ describe("Meal API", function() {
     chai.request(app)
     .get('/api/v1/meals')
     .end((err, response) => {
-      console.log(response.body)
       response.should.have.status(200)
       response.should.be.json
       response.body[0].should.deep.equal({ id: 1, name: "Twelvsies", foods: [{ calories: 60, id: 4, name: "Landweed" }] })
@@ -51,6 +50,16 @@ describe("Meal API", function() {
     })
   })
 
+  it("DELETE api/v1/meals/:meal_id/foods/:id should remove food from meal", (done) => {
+    chai.request(app)
+    .delete('/api/v1/meals/2/foods/2')
+    .end((err, response) => {
+      response.should.have.status(200)
+      response.body.message.should.equal("Successfully removed food from meal")
+      done()
+    })
+  })
+
   it("POST api/v1/meals/:meal_id/foods/:id should add food to meal", (done) => {
     chai.request(app)
     .post('/api/v1/meals/2/foods/2')
@@ -58,16 +67,6 @@ describe("Meal API", function() {
       response.should.have.status(201)
       response.should.be.json
       response.body.message.should.equal("Successfully added food to meal")
-      done()
-    })
-  })
-
-  it.only("DELETE api/v1/meals/:meal_id/foods/:id should remove food from meal", (done) => {
-    chai.request(app)
-    .delete('/api/v1/meals/2/foods/2')
-    .end((err, response) => {
-      response.should.have.status(200)
-      response.body.message.should.equal("Successfully removed food from meal")
       done()
     })
   })

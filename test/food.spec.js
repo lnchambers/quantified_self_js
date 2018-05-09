@@ -32,10 +32,9 @@ describe("Food API", function() {
     .end((err, response) => {
       response.should.have.status(200);
       response.should.be.json;
-      console.log(response.body)
       response.body[0].should.deep.equal({ id: 1, name: 'Opakawagalaga Eupanifahorious', calories: 300 })
-      response.body[1].should.deep.equal({ id: 2, name: 'Seaweed', calories: 3000 })
-      response.body[2].should.deep.equal({ id: 3, name: 'Fruit Snax 100% YOLO SWAG', calories: 42000000 })
+      response.body[2].should.deep.equal({ id: 3, name: 'Seaweed', calories: 3000 })
+      response.body[1].should.deep.equal({ id: 2, name: 'Fruit Snax 100% YOLO SWAG', calories: 42000000 })
       response.body[3].should.deep.equal({ id: 4, name: 'Landweed', calories: 60 })
       done();
     })
