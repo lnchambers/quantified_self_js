@@ -67,7 +67,7 @@ describe("Meal API", function() {
     .delete('/api/v1/meals/2/foods/2')
     .end((err, response) => {
       response.should.have.status(200)
-      response.body.message.should.equal("Successfull removed food from meal")
+      response.body.message.should.equal("Successfully removed food from meal")
       done()
     })
   })
