@@ -4,7 +4,7 @@ const Food = require('../models/food')
 
 router.get('/', function(req, res, next) {
   Food.all()
- .then(foods => res.json(foods))
+  .then(foods => res.json(foods))
 })
 
 router.get('/:id', function(req, res, next) {

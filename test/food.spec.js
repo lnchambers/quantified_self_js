@@ -10,7 +10,15 @@ chai.use(chaiHttp)
 
 const Food = require('../models/food')
 
-describe("Food API", () => {
+describe("Food API", function() {
+  this.timeout(0)
+  before((done) => {
+    database.migrate.latest()
+    .then(() => done())
+    .catch((error) => {throw error})
+    .done()
+  })
+
   beforeEach((done) => {
     database.seed.run()
     .then(() => done())
@@ -25,8 +33,8 @@ describe("Food API", () => {
       response.should.have.status(200);
       response.should.be.json;
       response.body[0].should.deep.equal({ id: 1, name: 'Opakawagalaga Eupanifahorious', calories: 300 })
-      response.body[1].should.deep.equal({ id: 2, name: 'Seaweed', calories: 3000 })
-      response.body[2].should.deep.equal({ id: 3, name: 'Fruit Snax 100% YOLO SWAG', calories: 42000000 })
+      response.body[2].should.deep.equal({ id: 3, name: 'Seaweed', calories: 3000 })
+      response.body[1].should.deep.equal({ id: 2, name: 'Fruit Snax 100% YOLO SWAG', calories: 42000000 })
       response.body[3].should.deep.equal({ id: 4, name: 'Landweed', calories: 60 })
       done();
     })
