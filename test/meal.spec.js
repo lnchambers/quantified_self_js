@@ -40,7 +40,7 @@ describe("Meal API", function() {
     })
   })
 
-  it.only("GET api/v1/meals/:meal_id/foods should return all foods associated with the meal", (done) => {
+  it("GET api/v1/meals/:meal_id/foods should return all foods associated with the meal", (done) => {
     chai.request(app)
     .get('/api/v1/meals/1/foods')
     .end((err, response) => {
@@ -55,17 +55,19 @@ describe("Meal API", function() {
     chai.request(app)
     .post('/api/v1/meals/2/foods/2')
     .end((err, response) => {
-      response.should.have.status(200)
+      response.should.have.status(201)
       response.should.be.json
+      response.body.message.should.equal("Successfully added food to meal")
       done()
     })
   })
 
-  it("DELETE api/v1/meals/:meal_id/foods/:id should remove food from meal", (done) => {
+  it.only("DELETE api/v1/meals/:meal_id/foods/:id should remove food from meal", (done) => {
     chai.request(app)
     .delete('/api/v1/meals/2/foods/2')
     .end((err, response) => {
       response.should.have.status(200)
+      response.body.message.should.equal("Successfull removed food from meal")
       done()
     })
   })
