@@ -1,3 +1,5 @@
+[![Waffle.io - Columns and their card count](https://badge.waffle.io/lnchambers/quantified_self_js.svg?columns=all)](https://waffle.io/lnchambers/quantified_self_js)
+
 # README
 
 This API is designed to interact with the Quantified Self front end located [here](https://github.com/lnchambers/quantified_self_fe).
