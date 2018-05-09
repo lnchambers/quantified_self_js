@@ -28,23 +28,25 @@ describe("Meal API", function() {
     .done()
   })
 
-  it.only("GET api/v1/meals should return all meals", (done) => {
+  it("GET api/v1/meals should return all meals", (done) => {
     chai.request(app)
     .get('/api/v1/meals')
     .end((err, response) => {
+      console.log(response.body)
       response.should.have.status(200)
       response.should.be.json
-      response.body.should.deep.equal({ id: 1, name: "Elevensies" })
+      response.body[0].should.deep.equal({ id: 1, name: "Twelvsies", foods: [{ calories: 60, id: 4, name: "Landweed" }] })
       done()
     })
   })
 
-  it("GET api/v1/meals/:meal_id/foods should return all foods associated with the meal", (done) => {
+  it.only("GET api/v1/meals/:meal_id/foods should return all foods associated with the meal", (done) => {
     chai.request(app)
-    .get('/api/v1/meals/2/foods')
+    .get('/api/v1/meals/1/foods')
     .end((err, response) => {
       response.should.have.status(200)
       response.should.be.json
+      response.body[0].should.deep.equal({ calories: 60, id: 4, name: "Landweed" })
       done()
     })
   })

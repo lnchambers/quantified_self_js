@@ -8,7 +8,8 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/:meal_id/foods', function(req, res, next) {
-  res.json({ obligatory: 'JSON' });
+  Meal.find(req.params.meal_id)
+  .then(meal => res.json(meal['foods']))
 });
 
 router.post('/:meal_id/foods/:id', function(req, res, next) {
